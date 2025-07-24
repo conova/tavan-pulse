@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User, TrendingUp, Target, Star, Calendar, LogOut, Settings } from 'lucide-react';
+import { User, TrendingUp, Target, Star, Calendar, LogOut } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -222,12 +222,8 @@ const UserProfile = () => {
         </Card>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-3">
-          <Button variant="outline" className="h-12 flex-col space-y-1">
-            <Settings className="h-5 w-5" />
-            <span className="text-xs">Тохиргоо</span>
-          </Button>
-          <Button variant="outline" className="h-12 flex-col space-y-1 text-destructive hover:text-destructive" onClick={handleLogout}>
+        <div className="flex justify-center">
+          <Button variant="outline" className="h-12 flex-col space-y-1 text-destructive hover:text-destructive w-32" onClick={handleLogout}>
             <LogOut className="h-5 w-5" />
             <span className="text-xs">Гарах</span>
           </Button>
