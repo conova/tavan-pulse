@@ -30,13 +30,18 @@ const Login = () => {
     setIsSubmitting(true);
     
     try {
-      const success = await login(email, password);
+      const result = await login(email, password);
       
-      if (!success) {
+      if (!result.success) {
         toast({
           title: 'Нэвтрэх амжилтгүй',
           description: 'Имэйл эсвэл нууц үг буруу байна',
           variant: 'destructive'
+        });
+      } else if (result.needsOtp) {
+        toast({
+          title: 'Төхөөрөмж баталгаажуулах',
+          description: 'Шинэ төхөөрөмж илрүүллээ. OTP код оруулна уу'
         });
       } else {
         toast({

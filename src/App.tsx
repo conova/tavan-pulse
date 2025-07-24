@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import Login from "./pages/Login";
+import { DeviceVerification } from "./components/DeviceVerification";
 import TimeTracking from "./pages/TimeTracking";
 import TeamDashboard from "./pages/TeamDashboard";
 import RequestManager from "./pages/RequestManager";
@@ -15,7 +16,7 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const AppRoutes = () => {
-  const { user, isLoading } = useAuth();
+  const { user, pendingUser, isLoading } = useAuth();
 
   if (isLoading) {
     return (
@@ -26,6 +27,11 @@ const AppRoutes = () => {
         </div>
       </div>
     );
+  }
+
+  // Show device verification if there's a pending user (needs OTP)
+  if (pendingUser && !user) {
+    return <DeviceVerification />;
   }
 
   if (!user) {
