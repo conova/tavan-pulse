@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
 import MobileLayout from '@/components/MobileLayout';
 
 interface KPI {
@@ -24,15 +26,26 @@ interface Recommendation {
 }
 
 const UserProfile = () => {
-  const [user] = useState({
-    name: 'Батбаяр',
-    position: 'Ахлах програмист',
-    department: 'IT хэлтэс',
-    employeeId: 'TB001',
-    email: 'batbayar@tavanbogd.mn',
-    joinDate: '2022-03-15',
-    avatar: '👨‍💻'
-  });
+  const { user, logout } = useAuth();
+  const { toast } = useToast();
+
+  // Use the actual authenticated user data
+  const currentUser = user || {
+    name: 'Ажилтан',
+    position: 'Албан тушаал',
+    department: 'Хэлтэс',
+    employeeId: 'TB000',
+    email: 'user@tavanbogd.mn',
+    avatar: '👤'
+  };
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: 'Амжилттай гарлаа',
+      description: 'Дахин уулзах болтугай!'
+    });
+  };
 
   const [kpis] = useState<KPI[]>([
     {
@@ -127,18 +140,18 @@ const UserProfile = () => {
             <div className="flex items-center space-x-4">
               <Avatar className="h-16 w-16">
                 <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
-                  {user.avatar}
+                  {currentUser.avatar}
                 </AvatarFallback>
               </Avatar>
               
               <div className="flex-1">
-                <h1 className="text-xl font-bold text-foreground">{user.name}</h1>
-                <p className="text-muted-foreground">{user.position}</p>
-                <p className="text-sm text-muted-foreground">{user.department}</p>
+                <h1 className="text-xl font-bold text-foreground">{currentUser.name}</h1>
+                <p className="text-muted-foreground">{currentUser.position}</p>
+                <p className="text-sm text-muted-foreground">{currentUser.department}</p>
                 
                 <div className="flex items-center mt-2 space-x-4 text-xs text-muted-foreground">
-                  <span>ID: {user.employeeId}</span>
-                  <span>Элссэн: {new Date(user.joinDate).toLocaleDateString('mn-MN')}</span>
+                  <span>ID: {currentUser.employeeId}</span>
+                  <span>Email: {currentUser.email}</span>
                 </div>
               </div>
               
@@ -214,7 +227,7 @@ const UserProfile = () => {
             <Settings className="h-5 w-5" />
             <span className="text-xs">Тохиргоо</span>
           </Button>
-          <Button variant="outline" className="h-12 flex-col space-y-1 text-destructive hover:text-destructive">
+          <Button variant="outline" className="h-12 flex-col space-y-1 text-destructive hover:text-destructive" onClick={handleLogout}>
             <LogOut className="h-5 w-5" />
             <span className="text-xs">Гарах</span>
           </Button>
