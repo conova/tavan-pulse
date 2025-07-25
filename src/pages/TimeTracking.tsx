@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 import MobileLayout from '@/components/MobileLayout';
 
 interface TimeEntry {
@@ -32,6 +33,7 @@ const TimeTracking = () => {
     status: 'incomplete'
   });
   const { toast } = useToast();
+  const { user } = useAuth();
 
   // Update current time every second
   useEffect(() => {
@@ -122,9 +124,12 @@ const TimeTracking = () => {
   return (
     <MobileLayout>
       <div className="p-4 space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-2xl font-bold text-foreground">Цагийн бүртгэл</h1>
+        {/* Welcome Section */}
+        <div className="text-center space-y-3">
+          <div className="space-y-1">
+            <h1 className="text-2xl font-bold text-foreground">Сайн байна уу, {user?.name}!</h1>
+            <p className="text-lg text-primary font-medium">Цагийн бүртгэл</p>
+          </div>
           <p className="text-muted-foreground">{formatDate(currentTime)}</p>
         </div>
 
