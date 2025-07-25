@@ -141,34 +141,48 @@ const TimeTracking = () => {
           </CardContent>
         </Card>
 
-        {/* Check In/Out Button */}
-        <div className="space-y-4">
-          <Button
-            onClick={handleTimeAction}
-            className={`w-full h-16 text-lg font-semibold ${
-              isCheckedIn 
-                ? 'btn-success hover:shadow-[var(--shadow-success)]' 
-                : 'btn-primary hover:shadow-[var(--shadow-primary)]'
-            }`}
-          >
-            {isCheckedIn ? (
-              <>
-                <Square className="mr-2 h-6 w-6" />
-                Ажлаас гарах
-              </>
-            ) : (
-              <>
-                <Play className="mr-2 h-6 w-6" />
-                Ажилд орох
-              </>
-            )}
-          </Button>
-
+        {/* Action Buttons */}
+        <div className="space-y-6">
           <div className="flex justify-center">
-            <Badge variant={isCheckedIn ? "default" : "secondary"} className="px-4 py-2">
+            <Badge 
+              variant={isCheckedIn ? "default" : "secondary"} 
+              className={`px-6 py-3 text-lg font-medium ${
+                isCheckedIn 
+                  ? 'bg-gradient-to-r from-success to-success-glow text-white shadow-[var(--shadow-success)]' 
+                  : 'bg-muted/50 text-muted-foreground'
+              }`}
+            >
               {isCheckedIn ? '✓ Ажилд байна' : '○ Ажилд ороогүй'}
             </Badge>
           </div>
+
+          {!isCheckedIn ? (
+            <Button
+              onClick={handleTimeAction}
+              className="w-full h-16 text-lg font-semibold btn-primary hover:shadow-[var(--shadow-primary)] hover:scale-[1.02] transition-all duration-300"
+            >
+              <Play className="mr-3 h-6 w-6" />
+              Ажилд орох
+            </Button>
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
+              <Button
+                onClick={handleTimeAction}
+                className="h-16 text-lg font-semibold btn-success hover:shadow-[var(--shadow-success)] hover:scale-[1.02] transition-all duration-300"
+              >
+                <Square className="mr-2 h-5 w-5" />
+                Ажлаас гарах
+              </Button>
+              <Button
+                variant="outline"
+                className="h-16 text-lg font-semibold border-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
+                disabled
+              >
+                <Clock className="mr-2 h-5 w-5" />
+                Цаг тооцох
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Today's Summary */}
