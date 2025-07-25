@@ -142,7 +142,7 @@ const TimeTracking = () => {
         </Card>
 
         {/* Action Buttons */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="flex justify-center">
             <Badge 
               variant={isCheckedIn ? "default" : "secondary"} 
@@ -156,33 +156,32 @@ const TimeTracking = () => {
             </Badge>
           </div>
 
-          {!isCheckedIn ? (
+          <div className="grid grid-cols-2 gap-4">
             <Button
-              onClick={handleTimeAction}
-              className="w-full h-16 text-lg font-semibold btn-primary hover:shadow-[var(--shadow-primary)] hover:scale-[1.02] transition-all duration-300"
+              onClick={() => !isCheckedIn && handleTimeAction()}
+              disabled={isCheckedIn}
+              className={`h-14 text-base font-semibold ${
+                !isCheckedIn 
+                  ? 'btn-primary hover:shadow-[var(--shadow-primary)] hover:scale-[1.02]' 
+                  : 'opacity-50 cursor-not-allowed'
+              } transition-all duration-300`}
             >
-              <Play className="mr-3 h-6 w-6" />
-              Ажилд орох
+              <Play className="mr-2 h-5 w-5" />
+              Ирсэн
             </Button>
-          ) : (
-            <div className="grid grid-cols-2 gap-4">
-              <Button
-                onClick={handleTimeAction}
-                className="h-16 text-lg font-semibold btn-success hover:shadow-[var(--shadow-success)] hover:scale-[1.02] transition-all duration-300"
-              >
-                <Square className="mr-2 h-5 w-5" />
-                Ажлаас гарах
-              </Button>
-              <Button
-                variant="outline"
-                className="h-16 text-lg font-semibold border-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
-                disabled
-              >
-                <Clock className="mr-2 h-5 w-5" />
-                Цаг тооцох
-              </Button>
-            </div>
-          )}
+            <Button
+              onClick={() => isCheckedIn && handleTimeAction()}
+              disabled={!isCheckedIn}
+              className={`h-14 text-base font-semibold ${
+                isCheckedIn 
+                  ? 'btn-success hover:shadow-[var(--shadow-success)] hover:scale-[1.02]' 
+                  : 'opacity-50 cursor-not-allowed'
+              } transition-all duration-300`}
+            >
+              <Square className="mr-2 h-5 w-5" />
+              Явсан
+            </Button>
+          </div>
         </div>
 
         {/* Today's Summary */}
