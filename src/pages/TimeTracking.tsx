@@ -152,7 +152,7 @@ const TimeTracking = () => {
                   : 'bg-muted/50 text-muted-foreground'
               }`}
             >
-              {isCheckedIn ? '✓ Ажилд байна' : '○ Цаг бүртгээгүй'}
+              {isCheckedIn ? '✓ Цаг бүртгүүлсэн' : '○ Цаг бүртгээгүй'}
             </Badge>
           </div>
 
